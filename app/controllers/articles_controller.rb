@@ -1,8 +1,5 @@
 class ArticlesController < ApplicationController
 
-  # add a basic authentication engine
-  http_basic_authenticate_with name: "username", password: "password", except: [:index, :show]
-
   def index
     @articles = Article.all()
   end
