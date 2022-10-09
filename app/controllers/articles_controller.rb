@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   # protect certain routes based on authorization
-  before_action :authenticate_user!, :only => [:new,:edit,:update,:destroy]
+  skip_before_action :authenticate_user!, :only => [:index,:show] do
+    redirect_to new_user_session_path unless current_user
+  end
 
   def index
     @articles = Article.all()
@@ -15,16 +17,21 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    puts("*"*80)
+    puts('Running the new controller')
     @article = Article.new(article_params) 
 
     if @article.save()
       redirect_to @article
+      # send an email to the creater here
+      puts("after redirection")
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    # puts(current_user.admin)
     @article = Article.find(params[:id])
   end
 
