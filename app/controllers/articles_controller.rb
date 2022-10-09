@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  # protect certain routes based on authorization
+  before_action :authenticate_user!, :only => [:new,:edit,:update,:destroy]
 
   def index
     @articles = Article.all()

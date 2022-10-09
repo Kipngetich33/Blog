@@ -12,15 +12,11 @@
         </div>
     <% end %>
     
-    <% if user_signed_in? %>
-        <a class="btn btn-primary btn-lg" href="/articles/new" role="button">
-            New Article
-        </a>
-    <% else %>
-        <p style="font-weight:bold;"> 
-            Please Sign in order to create a new article ! 
-        </p>
-    <% end %>
+    <%# add button to allow users to add comments %>
+    <a class="btn btn-primary btn-lg" href="/articles/new" role="button">
+        New Article
+    </a>
+    
     
 
     
