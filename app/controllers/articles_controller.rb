@@ -14,17 +14,16 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new()
+    # @article = Article.new(title: "...", body: "...")
   end
 
   def create
-    puts("*"*80)
-    puts('Running the new controller')
     @article = Article.new(article_params) 
+    # add the creator email here
+    @article.creator = current_user.email
 
     if @article.save()
-      redirect_to @article
-      # send an email to the creater here
-      puts("after redirection")
+      redirect_to @article, alert:"Article Created Successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,7 +38,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to @article, alert:"Article Updated Successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -49,11 +48,11 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy()
 
-    redirect_to root_path, status: :see_other
+    redirect_to root_path, status: :see_other, alert:"Article Deleted Successfully"
   end
 
   private
     def article_params
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, :creator)
     end
 end
