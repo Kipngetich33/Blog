@@ -73,3 +73,5 @@ end
 
 gem "devise"
 gem "pony"
+gem 'sendgrid-ruby'
+gem 'ruby_http_client'
