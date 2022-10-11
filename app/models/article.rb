@@ -16,8 +16,7 @@ class Article < ApplicationRecord
         Add functionality to send an email notifications to the creator of the article
         '''
         # send_mails_with_pony()
-        # send_mail_with_sendgrid()
-        
+        send_mail_with_sendgrid()        
     end
 end
 
@@ -26,15 +25,19 @@ def send_mail_with_sendgrid
     '''
     Function meant to test sending of emails with SendGrid
     '''
+    # create an instance of SendGrid
+    sendgrid_mail = SendGrid
     begin
-        from = SendGrid::Email.new(email: 'khalifngeno@gmail.com')
-        to = SendGrid::Email.new(email: 'kipngetich.ngeno333@gmail.com')
+        from = sendgrid_mail::Email.new(email: 'khalifngeno@gmail.com')
+        to = sendgrid_mail::Email.new(email: 'kipngetich.ngeno333@gmail.com')
         subject = 'Sending with SendGrid is Fun'
-        content = SendGrid::Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
-        mail = SendGrid::Mail.new(from, subject, to, content)
+        content = sendgrid_mail::Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
+        mail = sendgrid_mail::Mail.new(from, subject, to, content)
 
-        sg = SendGrid::API.new(api_key: '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' )
+        # sg = sendgrid_mail::API.new(api_key: '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' )
+        sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
         response = sg.client.mail._('send').post(request_body: mail.to_json)
+        # display the output of the POST request
         puts response.status_code
         puts response.body
         puts response.headers

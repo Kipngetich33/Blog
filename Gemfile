@@ -71,7 +71,8 @@ group :test do
   gem "webdrivers"
 end
 
-gem "devise"
+gem 'devise'
 gem "pony"
 gem 'sendgrid-ruby'
 gem 'ruby_http_client'
+gem 'figaro'

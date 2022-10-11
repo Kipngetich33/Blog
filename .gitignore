@@ -34,3 +34,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 sendgrid.env
+
+# Ignore application configuration
+/config/application.yml
+
+# some local env variables are stored here
+local_env.yml
