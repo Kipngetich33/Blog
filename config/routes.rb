@@ -12,6 +12,24 @@ Rails.application.routes.draw do
   end
 
   # add a post method to handle post requests
-  post "/articles/:article_id/events/email_event" => "events#email_event"
+  post "/articles/:article_id/event/email_event" => "events#email_event"
 
+  namespace :api do
+    namespace :v1 do
+      # add url endpoint paths
+      resources :events, only: [:index]
+      post "events/email_event", to: "events#email_event"
+
+      # get "urls", to: "urls#index"
+      # get "urls:/:id", to: "urls#show" 
+      # post "urls", to: "urls#create"
+      # post "urls/redirect", to: "urls#redirect"
+      # # add statistic endpoint paths
+      # get "statistics", to: "statistics#index"
+      # get "statistics/:id", to: "statistics#show"
+      # post "statistics", to: "statistics#create" 
+    end
+  end
 end
+
+
