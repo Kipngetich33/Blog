@@ -13,3 +13,17 @@
     } %></li>
 </ul>
 
+<h2>Email Events</h2>
+<% @article.events.each do |event| %>
+    <hr/>
+    <p>
+    <strong>Email:</strong>
+    <%= event.email %>
+    </p>
+
+    <p>
+    <strong>Id:</strong>
+    <%= event.event %>
+    </p>
+<% end %>
+

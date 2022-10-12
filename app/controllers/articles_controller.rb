@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   # protect certain routes based on authorization
-  skip_before_action :authenticate_user!, :only => [:index,:show] do
+  skip_before_action :authenticate_user!, :only => [:index,:show,:email_event ] do
     redirect_to new_user_session_path unless current_user
   end
 

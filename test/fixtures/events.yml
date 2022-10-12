@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  event: MyString
+  sg_event_id: MyString
+  sg_message_id: MyString
+  ip: MyString
+  response: MyString
+  smtp_id: MyString
+  timestamp: 1
+  tls: 1
+  article: one
+
+two:
+  email: MyString
+  event: MyString
+  sg_event_id: MyString
+  sg_message_id: MyString
+  ip: MyString
+  response: MyString
+  smtp_id: MyString
+  timestamp: 1
+  tls: 1
+  article: two

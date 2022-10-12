@@ -6,16 +6,26 @@
 # include SendGrid
 
 class Article < ApplicationRecord
+    # link the events child table to Article
+    has_many :events
+
+    # add model validators for fields
     validates :title, presence: true
     validates :body, presence: true, length: { minimum: 10}
 
+    #controller for after article creation
     after_create :new_article_notification
     
     def new_article_notification
         '''
         Add functionality to send an email notifications to the creator of the article
         '''
+        puts("Send Email Notification")
+
+        # call function that send emails with pony gem
         # send_mails_with_pony()
+
+        # call functionality to send emails with sendgrid
         send_mail_with_sendgrid()        
     end
 end
@@ -25,6 +35,8 @@ def send_mail_with_sendgrid
     '''
     Function meant to test sending of emails with SendGrid
     '''
+    puts("*"*80)
+    puts("Sending email with sendgrid")
     # create an instance of SendGrid
     sendgrid_mail = SendGrid
     begin

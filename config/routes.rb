@@ -5,5 +5,13 @@ Rails.application.routes.draw do
   end
   root "articles#index" 
 
-  resources :articles
+  # resources :articles
+
+  resources :articles do
+    resources :events
+  end
+
+  # add a post method to handle post requests
+  post "/articles/:article_id/events/email_event" => "events#email_event"
+
 end
