@@ -42,6 +42,22 @@ class EventsController < ApplicationController
           :event_recieved => true
         }
     end
+
+    def events_dashboard
+        return_hash = {}
+        # pull all the events in the system
+        @events = Event.all()
+        # collect emails with same event id
+        for event in @events
+            # check if event in in return hash
+            unless return_hash.include?(:event.event_id)
+                puts("Adding even id")
+                return_hash[event.event_id] = { :processed => false, :delivered => false}
+            end
+        end
+        puts("final")
+        puts(return_hash)
+    end
     
     private
         def event_params
