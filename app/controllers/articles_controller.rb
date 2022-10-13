@@ -14,7 +14,6 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new()
-    # @article = Article.new(title: "...", body: "...")
   end
 
   def create
