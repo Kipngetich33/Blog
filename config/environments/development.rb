@@ -39,7 +39,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # allow ngrok host to send data to local server
-  config.hosts << "23aa-102-135-170-134.in.ngrok.io"
+  config.hosts << "b51b-102-135-170-134.in.ngrok.io"
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

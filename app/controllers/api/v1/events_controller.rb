@@ -5,21 +5,16 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def email_event
+        puts("*"*80)
+        puts("Running Email Event")
         # get parameters from sendgrid
         begin 
             # loop through each events in the return events list
             for events_key in params["_json"]
-               puts("looping through")
-
-                current_id = events_key['event_id']
-                if current_id
-                    event_id = current_id
-                else
-                    event_id = "N/A"
+                event_id = "N/A"
+                if events_key['event_id']
+                    event_id = events_key['event_id']
                 end
-
-                puts("event id")
-                puts(event_id)
                 
                 # create hash/dictonary for event parameters
                 event_params = {
@@ -34,6 +29,7 @@ class Api::V1::EventsController < ApplicationController
                     :tls => events_key['tls'],
                     :event_id => event_id
                 }
+                puts(event_params)
 
                 if event_id != "N/A"
                     puts("attempting save.............................")

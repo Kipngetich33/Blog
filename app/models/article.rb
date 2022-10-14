@@ -34,27 +34,28 @@ def send_mail_with_sendgrid(event_id,sender_email,recipient_email)
     '''
     Function meant to test sending of emails with SendGrid
     '''
-    puts("Sending .....................")
-    # create an instance of SendGrid
-    sendgrid_mail = SendGrid
-
     begin
-        puts("Attempting...................................")
-        # create and send you email
-        from = sendgrid_mail::Email.new(email: sender_email)
-        to = sendgrid_mail::Email.new(email: recipient_email)
-        subject = 'New Article'
-        content = sendgrid_mail::Content.new(type: 'text/plain', value: 'You have successfully created a new article.')
-        mail = sendgrid_mail::Mail.new(from, subject, to, content)
-        # add you custom arguments here
-        # mail.add_custom_arg(CustomArg.new(key: 'event_id', value: event_id))
+        full_mail = {
+            "from"=>{
+                "email"=>sender_email
+            }, 
+            "subject"=>"Test Send", 
+            "personalizations"=>[{"to"=>[{
+                "email"=>recipient_email
+            }]}], 
+            "content"=>[{
+                "type"=>"text/plain", 
+                "value"=>"You have successfully created a new article."
+            }], 
+            "custom_args"=>{"event_id"=>event_id}
+        }
+
         sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-        response = sg.client.mail._('send').post(request_body: mail.to_json)
-        puts("Done ..............................................................")
+        response = sg.client.mail._('send').post(request_body: full_mail.to_json)
     rescue 
         # run this block if there is a failure while sending the email
         puts("*"*80)
-        puts("An error occured while sending you email.")
+        puts("An error occured while sending your email.")
         
         return {
             :status => false,

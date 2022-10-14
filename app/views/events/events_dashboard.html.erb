@@ -2,19 +2,31 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Recipient</th>
-      <th scope="col">Event Id</th>
-      <th scope="col">Processed</th>
-      <th scope="col">Delivered</th>
+        <th scope="col">Event Id</th>
+        <th scope="col">Recipient</th>
+        <th scope="col">Processed</th>
+        <th scope="col">Delivered</th>
     </tr>
   </thead>
   <tbody>
-    <% @events.each do |event| %>
+    <% @return_hash.each do |key,value| %>
         <tr>
-            <td><%= event.email %></td>
-            <td><%= event.event %></td>
-            <td><%= event.event %></td>
-            <td><%= event.event %></td>
+            <td><%= key %></td>
+            <td><%= value[:email] %></td>
+            <td>
+                <% if value[:processed] %>
+                    <i class="bi bi-check-circle-fill"></i>
+                <% else %>
+                    <i class="bi bi-dash-lg"></i>
+                <% end %>
+            </td>
+            <td>
+                <% if value[:delivered] %>
+                    <i class="bi bi-check-circle-fill"></i>
+                <% else %>
+                    <i class="bi bi-dash-lg"></i>
+                <% end %>
+            </td>
         </tr>
     <% end %>    
     

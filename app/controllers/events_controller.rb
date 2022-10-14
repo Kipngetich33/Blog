@@ -10,7 +10,7 @@ class EventsController < ApplicationController
         redirect_to root_path
     end
 
-    def email_event    
+    def email_event 
         # get parameters from sendgrid
         begin        
             # loop through each events in the return events list
@@ -44,19 +44,32 @@ class EventsController < ApplicationController
     end
 
     def events_dashboard
-        return_hash = {}
+        @return_hash = {}
         # pull all the events in the system
         @events = Event.all()
         # collect emails with same event id
         for event in @events
             # check if event in in return hash
-            unless return_hash.include?(:event.event_id)
+            unless @return_hash.include?(event.event_id)
                 puts("Adding even id")
-                return_hash[event.event_id] = { :processed => false, :delivered => false}
+                @return_hash[event.event_id] = { :processed => false, :delivered => false,
+                        :email => event.email,
+                    }
             end
+            # Mark the different statuses
+            if event.event == "processed"
+                @return_hash[event.event_id][:processed] = true
+            elsif event.event == "delivered"
+                @return_hash[event.event_id][:delivered] = true
+            else
+                # just pass for now
+            end
+
         end
-        puts("final")
-        puts(return_hash)
+        # puts("final")
+        # puts(@return_hash)
+        # aggregated_hash = @return_hash.each{|k,v| return_hash[k]=v}
+        # puts(aggregated_hash)
     end
     
     private
